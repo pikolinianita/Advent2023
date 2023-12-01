@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.io.File;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,7 +17,9 @@ class Day1Test {
             "1abc2,12",
             "pqr3stu8vwx,38",
             "a1b2c3d4e5f,15",
-            "treb7uchet,77"}
+            "treb7uchet,77",
+            "12345,15",
+            "42xccx35, 45"}
     )
     void processLineP1Test(String line, String answer) {
         assertThat(new Day1().decipherP1(line)).isEqualTo(Integer.parseInt(answer));
@@ -28,4 +31,5 @@ class Day1Test {
        int answer = new Day1().solveP1(input);
        assertThat(answer).isEqualTo(142);
     }
+
 }
