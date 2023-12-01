@@ -31,11 +31,11 @@ public class Day1 {
     }
 
     int decipherLinePart1(String line) {
-        var result = listOnlyDigits(line);
+        var result = extractDigits(line);
         return makeNumberFromFirstAndLast(result);
     }
 
-    private List<String> listOnlyDigits(String line) {
+    private List<String> extractDigits(String line) {
         return oneDigitPattern.matcher(line).results().map(matchResult -> matchResult.group(0)).toList();
     }
 
