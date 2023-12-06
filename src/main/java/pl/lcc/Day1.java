@@ -10,23 +10,19 @@ import java.util.stream.Stream;
 public class Day1 {
 
     private final static String PATH_TO_INPUT = "data\\day01.txt";
-    private final Pattern oneDigitPattern;
-
-    public Day1() {
-        oneDigitPattern = Pattern.compile("\\d");
-    }
+    private final Pattern oneDigitPattern = Pattern.compile("\\d");
 
     public static void main(String[] args) {
         try (var scanner = new Scanner(new File(PATH_TO_INPUT))) {
             Day1 day1 = new Day1();
-            var result = day1.solveTask1(scanner.tokens());
+            var result = day1.sumOfCalibrationValues(scanner.tokens());
             printResult(result);
         } catch (FileNotFoundException e) {
-            throw new RuntimeException("Scanner Failed: No File");
+            throw new RuntimeException("Scanner Failed: No File" + PATH_TO_INPUT);
         }
     }
 
-    int solveTask1(Stream<String> inputLines) {
+    int sumOfCalibrationValues(Stream<String> inputLines) {
         return inputLines.mapToInt(this::decipherLinePart1).sum();
     }
 
@@ -46,5 +42,7 @@ public class Day1 {
     private static void printResult(int result) {
         System.out.println("P1 Result is:");
         System.out.println(result);
+
     }
+
 }

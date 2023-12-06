@@ -18,15 +18,24 @@ class Day1Test {
             "12345,15",
             "42xccx35, 45"}
     )
-    void processLineP1Test(String line, String answer) {
-        assertThat(new Day1().decipherLinePart1(line)).isEqualTo(Integer.parseInt(answer));
+    void shouldDecipherNumbers(String line, String answer) {
+        //when
+        var result = new Day1().decipherLinePart1(line);
+
+        //then
+        assertThat(result).isEqualTo(Integer.parseInt(answer));
     }
 
     @Test
-    void answerP1Test() {
+    void shouldSolveTestInput() {
+        //given
         var input = Stream.of("1abc2", "pqr3stu8vwx", "a1b2c3d4e5f", "treb7uchet");
-        int answer = new Day1().solveTask1(input);
-        assertThat(answer).isEqualTo(142);
 
+        //when
+        int answer = new Day1().sumOfCalibrationValues(input);
+
+        //Then
+        assertThat(answer).isEqualTo(142);
     }
+
 }
