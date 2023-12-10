@@ -51,53 +51,59 @@ public class Day9 {
 
     static class Differentiator {
 
-        private List<long[]> diffs;
+        private List<long[]> derivatives;
+        private boolean notFinished;
 
         Differentiator(String line){
-            var history = Arrays.stream(line.split(" "))
+            var historicalData = Arrays.stream(line.split(" "))
                     .mapToLong(Integer::parseInt)
                     .toArray();
-            diffs = new ArrayList<>();
-            diffs.add(history);
+            derivatives = new ArrayList<>();
+            derivatives.add(historicalData);
             differentiate();
         }
 
         private void differentiate(){
-            var notFinished = true;
-            int level = 0;
+            notFinished = true;
+            int order = 0;
             while (notFinished){
                 notFinished = false;
-                var prevDiff = diffs.get(level);
-                int size = prevDiff.length-1;
-                var nextDiff = new long[size];
-                for(int i =0; i<size; i++){
-                    nextDiff[i]= prevDiff[i+1]-prevDiff[i];
-                    if(nextDiff[i]!=0) {
-                        notFinished = true;
-                    }
-                }
-                diffs.add(nextDiff);
-                level++;
+                var currentDerivative = derivatives.get(order);
+                var nextDerivative = createNextDerivative(currentDerivative);
+                derivatives.add(nextDerivative);
+                order++;
             }
         }
 
-         @Override
+        private long[] createNextDerivative(long[] currentDerivative) {
+            int size = currentDerivative.length-1;
+            var nextDerivative = new long[size];
+            for(int i = 0; i< size; i++){
+                nextDerivative[i]= currentDerivative[i+1]- currentDerivative[i];
+                if(nextDerivative[i]!=0) {
+                    notFinished = true;
+                }
+            }
+            return nextDerivative;
+        }
+
+        @Override
          public String toString() {
              return "Differentiator{" +
-                     "extrapolations=" + diffs.stream()
+                     "extrapolations=" + derivatives.stream()
                             .map(Arrays::toString)
                             .collect(Collectors.joining(" : ")) +
                      '}';
          }
 
          long valueExtrapolatedForward() {
-            return diffs.stream()
+            return derivatives.stream()
                     .mapToLong(a -> a[a.length-1])
                     .sum();
          }
 
           long valueExtrapolatedBackward() {
-            var valuesAtTimeZero = diffs.stream()
+            var valuesAtTimeZero = derivatives.stream()
                     .mapToLong(a -> a[0])
                     .toArray();
             long result = 0;
