@@ -65,19 +65,19 @@ public class Day9 {
 
         private void differentiate(){
             notFinished = true;
-            int order = 0;
+            int derivativeOrder = 0;
             while (notFinished){
                 notFinished = false;
-                var currentDerivative = derivatives.get(order);
-                var nextDerivative = createNextDerivative(currentDerivative);
+                long[] currentDerivative = derivatives.get(derivativeOrder);
+                long[] nextDerivative = createNextDerivative(currentDerivative);
                 derivatives.add(nextDerivative);
-                order++;
+                derivativeOrder++;
             }
         }
 
         private long[] createNextDerivative(long[] currentDerivative) {
             int size = currentDerivative.length-1;
-            var nextDerivative = new long[size];
+            long[] nextDerivative = new long[size];
             for(int i = 0; i< size; i++){
                 nextDerivative[i]= currentDerivative[i+1]- currentDerivative[i];
                 if(nextDerivative[i]!=0) {
